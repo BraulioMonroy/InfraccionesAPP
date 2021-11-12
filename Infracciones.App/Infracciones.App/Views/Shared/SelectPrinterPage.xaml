@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Infracciones.Infrastructure.ZebraPrintStation.Converters" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Infracciones.Views.Shared.SelectPrinterPage"
+    Title="Seleccionar una impresora"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundImageSource="Background.png">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <local:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
+            <local:DiscoveredPrinterToConnectionTypeImageConverter x:Key="DiscoveredPrinterToConnectionTypeImageConverter" />
+            <local:DiscoveredPrinterToFriendlyNameConverter x:Key="DiscoveredPrinterToFriendlyNameConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Spacing="0" Margin="0" Padding="0">
+            <ScrollView Margin="0" VerticalOptions="FillAndExpand" HorizontalOptions="Start">
+                <ScrollView.VerticalOptions>
+                    <OnIdiom x:TypeArguments="LayoutOptions" Default="CenterAndExpand" Phone="FillAndExpand" />
+                </ScrollView.VerticalOptions>
+                <Frame BackgroundColor="White" CornerRadius="17" Margin="10,5,10,-20" Padding="0">
+                    <Grid Margin="0" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="250"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <!--HEADER-->
+                        <Grid Grid.Row="0" Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition  Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Grid.Column="0" Source="icnBoxConEquisGreen.png" HeightRequest="40" x:Name="Close" Clicked="BtnCancel_Clicked"
+                                BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start"/>
+                            <Image Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                                Margin="0" Source="icnImprimirGreen.png" HeightRequest="40"/>
+                            <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Start" Spacing="0">
+                                <Label  Margin="2" VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" Text="Imprimir" FontSize="13"/>
+                                <!--<Label VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" TextTransform="Default" Text="Imprimir" FontSize="13"/>-->
+                            </StackLayout>
+                        </Grid>
+
+                        <!--CONTENT-->
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10" BackgroundColor="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0" Orientation="Horizontal" HeightRequest="42">
+                                    <Label Margin="15,0" VerticalOptions="Center" HorizontalOptions="StartAndExpand" Text="Impresoras encontradas" Style="{StaticResource SubtitleLabelStyle}" />
+                                    <Image x:Name="RefreshIcon" Margin="5,0" Source="ic_refresh.png" VerticalOptions="Center">
+                                        <Image.Triggers>
+                                            <DataTrigger TargetType="Image" Binding="{Binding IsPrinterListRefreshing}" Value="True">
+                                                <Setter Property="Opacity" Value="0.25" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Image" Binding="{Binding IsSelectingPrinter}" Value="True">
+                                                <Setter Property="Opacity" Value="0.25" />
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="RefreshIcon_Tapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" BackgroundColor="#00B140" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+                                <ListView x:Name="PrinterList" Grid.Row="2" ItemsSource="{Binding DiscoveredPrinterList}" SelectedItem="{Binding HighlightedPrinter}" HasUnevenRows="True"  VerticalOptions="Start">
+                                    <ListView.Triggers>
+                                        <DataTrigger TargetType="ListView" Binding="{Binding IsSelectingPrinter}" Value="True">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </ListView.Triggers>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <StackLayout Orientation="Horizontal" Padding="0,5">
+                                                    <Image Source="{Binding ., Converter={StaticResource DiscoveredPrinterToConnectionTypeImageConverter}}" VerticalOptions="Center" Margin="10,0,5,0" />
+                                                    <StackLayout Spacing="1" Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                                        <Label Text="{Binding ., Converter={StaticResource DiscoveredPrinterToFriendlyNameConverter}}" HorizontalOptions="FillAndExpand" Style="{StaticResource PrinterFriendlyNameStyle}" />
+                                                        <Label Text="{Binding Address}" HorizontalOptions="FillAndExpand" Style="{StaticResource PrinterAddressStyle}" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <Grid Grid.Row="2" BackgroundColor="White" IsVisible="{Binding IsSelectingPrinter}">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <ActivityIndicator Color="#00B140" IsRunning="{Binding IsSelectingPrinter}" />
+                                        <Label Margin="0,5,0,0" Text="Seleccionando impresora..." Style="{StaticResource ContentLabelStyle}" />
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <!--ACTION BUTTONS-->
+                        <Button Grid.Row="2" Text="Seleccionar" Style="{StaticResource MainButton}" IsEnabled="False" Clicked="SelectButton_Clicked">
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding IsSelectingPrinter}" Value="False" />
+                                        <BindingCondition Binding="{Binding HighlightedPrinter, Converter={StaticResource NotNullToBooleanConverter}}" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+                </Frame>
+            </ScrollView>
+            <!--Footer Panic Button-->
+            <ContentView AbsoluteLayout.LayoutFlags="YProportional" Margin="0,0,0,0">
+                <Grid RowSpacing="0" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <pancake:PancakeView Grid.Row="0" BackgroundColor="#CB2833" Padding="0"
+                        CornerRadius="15,15,0,0" VerticalOptions="EndAndExpand" HeightRequest="50">
+                        <Button x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+                    </pancake:PancakeView>
+                </Grid>
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

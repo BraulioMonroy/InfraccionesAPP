@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Infracciones.Views.Sanctions.Media.CarouselGalleryPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Black"
+             x:Name="mainBinding">
+    
+    <ContentPage.Title>
+        <OnPlatform x:TypeArguments="x:String">
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+        </OnPlatform>
+    </ContentPage.Title>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10" 
+                Orientation="Vertical">
+            <Frame CornerRadius="35"
+                Padding="5"
+                VerticalOptions="Start">
+                <StackLayout Orientation="Horizontal">
+                    <Switch HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        IsToggled="True"
+                        x:Name="SwitchGases"
+                        OnColor="#00B140"
+                        IsEnabled="False">
+                    </Switch>
+                    <Image VerticalOptions="Center"
+                        HeightRequest="25"
+                        x:Name="ImageEmisiones"
+                        Source="{Binding TypeSanction.Image}" />
+                    <Label VerticalOptions="Center"
+                        Style="{StaticResource EnabledLabelStyle}"
+                        x:Name="LabelEmisiones"
+                        Text="{Binding TypeSanction.SanctionName}" />
+                    <ImageButton HorizontalOptions="EndAndExpand"
+                        HeightRequest="25"
+                        x:Name="ButtonAdd"
+                        Source="icnAgregarFotoGreen.png"
+                        Clicked="ButtonAdd_Clicked" />
+                </StackLayout>
+            </Frame>
+            <CarouselView Margin="5" 
+                x:Name="CarouselGallery"
+                ItemsSource="{Binding Images}"
+                EmptyView="No hay elementos multimedia para mostrar">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal"/>
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <AbsoluteLayout HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="FillAndExpand">
+                            <Image AbsoluteLayout.LayoutBounds="1,1,1,1" 
+                                    AbsoluteLayout.LayoutFlags="All" 
+                                    Aspect="AspectFit"
+                                    x:Name="viewPhotoImage"                                    
+                                    Source="{Binding ImageSource}" />
+                            <StackLayout AbsoluteLayout.LayoutBounds="1,1,1,1" 
+                                AbsoluteLayout.LayoutFlags="All" 
+                                Orientation="Vertical">
+                                <StackLayout HorizontalOptions="FillAndExpand" 
+                                    VerticalOptions="EndAndExpand"
+                                    Orientation="Vertical">
+                                    <Frame
+                                        BorderColor="White"
+                                        BackgroundColor="#ccc"
+                                        Opacity=".5"                              
+                                        Padding="5" 
+                                        Margin="0" 
+                                        HeightRequest="35"
+                                        WidthRequest="35"
+                                        CornerRadius="35"                      
+                                        VerticalOptions="EndAndExpand" 
+                                        HorizontalOptions="Center">
+                                        <ImageButton                                      
+				                            Source="icnBasuraWhite.png"
+                                            BackgroundColor="Transparent"
+					                        x:Name="ButtonCanel"
+                                            Command="{Binding Path=BindingContext.RemoveMediaCommand, Source={x:Reference mainBinding}}"
+                                            CommandParameter="{Binding Id}"/>
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                        </AbsoluteLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <Button CornerRadius="20"
+                VerticalOptions="EndAndExpand"
+			    Text="Regresar"
+                TextColor="White"
+				BackgroundColor="#ccc"
+                BorderColor="#fff"
+                BorderWidth="2"
+                Opacity=".5"
+				x:Name="ButtonBack"
+                Clicked="ButtonBack_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

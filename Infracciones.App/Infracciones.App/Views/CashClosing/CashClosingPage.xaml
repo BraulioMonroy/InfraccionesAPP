@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Class="Infracciones.App.Views.CashClosing.CashClosingPage"
+    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundImageSource="Background.png">
+
+    <ContentPage.Title>
+        <OnPlatform x:TypeArguments="x:String">
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+        </OnPlatform>
+    </ContentPage.Title>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Spacing="0" Margin="0" Padding="0">
+            <ScrollView Margin="0" VerticalOptions="FillAndExpand" HorizontalOptions="Start">
+                <ScrollView.VerticalOptions>
+                    <OnIdiom x:TypeArguments="LayoutOptions" Default="CenterAndExpand" Phone="FillAndExpand" />
+                </ScrollView.VerticalOptions>
+                <Frame BackgroundColor="White" CornerRadius="17" Margin="10,5,10,-20" Padding="0">
+                    <Grid Margin="0" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!--HEADER-->
+                        <Grid Grid.Row="0" Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Grid.Column="0" Source="icnBoxConEquisGreen.png" HeightRequest="40" x:Name="Close" Clicked="Close_Clicked"
+                                BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start"/>
+                            <Image Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                                Margin="3" Source="icnCajaGreen.png" HeightRequest="25"/>
+                            <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="StartAndExpand" Spacing="0">
+                                <Label  Margin="5" VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" Text="Corte de caja"/>
+                            </StackLayout>
+                        </Grid>
+
+                        <!--Content-->
+                        <StackLayout Grid.Row="1" Margin="0" Padding="10, 0" Orientation="Vertical">
+                            <dg:DataGrid
+                                x:Name="DataGrid"
+                                IsRefreshing="{Binding IsRefreshing}"
+                                PullToRefreshCommand="{Binding RefreshingCommand}"
+                                ItemsSource="{Binding SanctionsPaid}"
+                                SelectionEnabled="True"
+                                ActiveRowColor="#9D9D9D"                       
+                                BorderThickness="0"                       
+                                FontFamily="SourceSansPro-Light"  
+                                FontSize="10"    
+                                HeaderFontSize="12"                       
+                                HeaderBackground="#CCC">
+                                <x:Arguments>
+                                    <ListViewCachingStrategy>RetainElement</ListViewCachingStrategy>
+                                </x:Arguments>
+                                <dg:DataGrid.HeaderFontSize>
+                                    <OnIdiom x:TypeArguments="x:Double">
+                                        <OnIdiom.Tablet>12</OnIdiom.Tablet>
+                                        <OnIdiom.Phone>12</OnIdiom.Phone>
+                                    </OnIdiom>
+                                </dg:DataGrid.HeaderFontSize>
+                                <dg:DataGrid.Columns>
+                                    <dg:DataGridColumn Title="Folio" PropertyName="Number" Width="*"></dg:DataGridColumn>
+                                    <dg:DataGridColumn Title="Fecha / Hora" PropertyName="Date" Width="*"></dg:DataGridColumn>
+                                    <dg:DataGridColumn Title="Placa" PropertyName="Plates" Width="*"></dg:DataGridColumn>
+                                    <dg:DataGridColumn Title="Oficial" PropertyName="Officer" Width="*"></dg:DataGridColumn>
+                                    <dg:DataGridColumn Title="Monto" PropertyName="Amount" Width="*"></dg:DataGridColumn>
+                                </dg:DataGrid.Columns>
+                                <dg:DataGrid.RowsBackgroundColorPalette>
+                                    <dg:PaletteCollection>
+                                        <Color>#FFFFFF</Color>
+                                        <Color>#CCC</Color>
+                                    </dg:PaletteCollection>
+                                </dg:DataGrid.RowsBackgroundColorPalette>
+                            </dg:DataGrid>
+
+                            <Label FontSize="Micro" Text="{Binding TotalSanctions,StringFormat='Total de registros: {0}'}" />
+
+                            <Label HorizontalOptions="Center"
+                                x:Name="ErrorLabel"
+                                Style="{StaticResource ErrorLabelStyle}"/>
+                        </StackLayout>
+                        <Button  Grid.Row="2"
+                                Margin="10, 0, 10, 16"                               
+                                Style="{StaticResource PrimarynButton }"
+                                Text="Enviar corte"
+                                x:Name="BtnClosing"
+                                Clicked="BtnClosing_Clicked"/>
+                    </Grid>
+                </Frame>
+            </ScrollView>
+
+            <!--Footer Panic Button-->
+            <ContentView AbsoluteLayout.LayoutFlags="YProportional" Margin="0,0,0,0">
+                <Grid RowSpacing="0" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <pancake:PancakeView Grid.Row="0" BackgroundColor="#CB2833" Padding="0"
+                        CornerRadius="15,15,0,0" VerticalOptions="EndAndExpand" HeightRequest="50">
+                        <Button x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+                    </pancake:PancakeView>
+                </Grid>
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
