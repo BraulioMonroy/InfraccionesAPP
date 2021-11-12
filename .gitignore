@@ -1,0 +1,13 @@
+/.vs
+/Apk
+/Infracciones.App/Infracciones.App/obj
+/Infracciones.App/Infracciones.App.Android/obj
+/Infracciones.App/Infracciones.App.iOS/obj
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-armeabi-v7a.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-armeabi-v7a-Signed.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-x86.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-x86_64.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-x86_64-Signed.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-x86-Signed.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-arm64-v8a.apk
+/Infracciones.App/Infracciones.App.Android/bin/Debug/com.sedema.sanciones.app-arm64-v8a-Signed.apk

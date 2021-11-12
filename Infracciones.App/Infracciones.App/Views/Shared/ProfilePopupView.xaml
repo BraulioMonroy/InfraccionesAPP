@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="Infracciones.App.Views.Shared.ProfilePopupView"
+        xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+        xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
+        xmlns:viewModel="clr-namespace:Infracciones.ViewModels.Shared"
+        CloseWhenBackgroundIsClicked="False">
+    
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    
+    <pages:PopupPage.Animation> 
+        <animations:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"            
+            PositionIn="Left"
+            PositionOut="Left"
+            ScaleIn="1"
+            ScaleOut="1"/>
+    </pages:PopupPage.Animation>
+
+    <Frame x:Name="FrameContainer" VerticalOptions="FillAndExpand" Padding="0" BackgroundColor="#E4F0E8">
+        <StackLayout Orientation="Vertical">
+            <Grid VerticalOptions="Start" Padding="15,5,15,0">
+                <Grid.BindingContext>
+                    <viewModel:ProfileViewModel />
+                </Grid.BindingContext>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <!--Header-->
+                <Frame Grid.Row="0" Grid.ColumnSpan="2" Padding="5,5,42,5" HasShadow="False" 
+                    HorizontalOptions="FillAndExpand" BackgroundColor="White" CornerRadius="35">
+                    <StackLayout Orientation="Horizontal" Padding="0">
+                        <Image Source="icnUsuarioGreen.png" HorizontalOptions="Start" />
+                        <Image Source="HeaderIcon.png" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </Frame>
+                <ImageButton Grid.Row="0" Grid.Column="2" Margin="0" Padding="0" BackgroundColor="Transparent"
+                    x:Name="ToggleButton" Source="icnCirculoCerrarGreen.png" Clicked="ToggleButton_Clicked">
+                </ImageButton>
+
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Date}"
+                    x:Name="CurrentDateLabel" Style="{StaticResource ProfileTitleLabel}"/>
+                <Label Grid.Row="1" Grid.Column="2"  Text="{Binding Time}"
+                    x:Name="CurrentTimeLabel" Style="{StaticResource ProfileTitleLabel}"/>
+
+                <BoxView Grid.Row="2" Grid.ColumnSpan="3" Color="#00B140" Opacity="0.25" HeightRequest="1" />
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource ProfileLabelStyle}"
+                        Text="Oficial:"/>
+                    <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource ProfileDataLabelStyle}"
+                        Text="{Binding Officer}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource ProfileLabelStyle}"
+                        Text="Clave:"/>
+                    <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource ProfileDataLabelStyle}"
+                        Text="{Binding Key}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ProfileLabelStyle}"
+                        Text="Turno:"/>
+                    <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource ProfileDataLabelStyle}"
+                        Text="{Binding Shift}"/>
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ProfileLabelStyle}"
+                        Text="Sector:"/>
+                    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource ProfileDataLabelStyle}"
+                        Text="{Binding Sector}"/>
+                    <!--<Label Grid.Row="4" Grid.Column="0" Style="{StaticResource ProfileLabelStyle}"
+                        Text="Estatus:"/>
+                    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource ProfileDataLabelStyle}"
+                        Text="Disponible"/>-->
+                </Grid>
+
+                <BoxView Grid.Row="4" Grid.ColumnSpan="3" Color="#00B140" Opacity="0.25" HeightRequest="1" />
+
+                <StackLayout Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <Image Source="icnAyudaGreen.png" HeightRequest="25" VerticalOptions="Center"/>
+                    <Label Text="Ayuda" Style="{StaticResource SubtitleLabelStyle}" VerticalOptions="Center"/>
+                </StackLayout>
+
+                <Image Grid.Row="5" Grid.Column="2" Margin="0" Source="icnAjustesGreen.png" HeightRequest="25" VerticalOptions="Center"/>
+
+                <BoxView Grid.Row="6" Grid.ColumnSpan="3" Color="#00B140" HeightRequest="1" />
+
+                <StackLayout Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalOptions="End">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapLogout" Tapped="TapLogout_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                    <Image Source="icnCerrarSesionRed.png" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="End"/>
+                    <Label Text="CERRAR SESIÓN" Style="{StaticResource ErrorLabelStyle}" FontSize="14" VerticalOptions="Center" HorizontalOptions="End"/>
+                </StackLayout>
+            </Grid>
+
+            
+        </StackLayout>
+        
+       
+    </Frame>
+</pages:PopupPage>

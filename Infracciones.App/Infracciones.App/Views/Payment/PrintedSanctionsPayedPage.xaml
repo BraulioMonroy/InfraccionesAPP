@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="Infracciones.Views.Payment.PrintedSanctionsPayedPage"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundImageSource="Background.png">
+
+    <ContentPage.Title>
+        <OnPlatform x:TypeArguments="x:String">
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+        </OnPlatform>
+    </ContentPage.Title>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <ScrollView VerticalOptions="Center" HorizontalOptions="Center">
+                <ScrollView.VerticalOptions>
+                    <OnIdiom x:TypeArguments="LayoutOptions" Default="CenterAndExpand" Phone="FillAndExpand" />
+                </ScrollView.VerticalOptions>
+                <Frame BackgroundColor="White" CornerRadius="17" Padding="20" Margin="20">
+
+                    <StackLayout Orientation="Vertical" Spacing="25">
+                        <Image Source="icnImprimirGreen.png"/>
+                        <Label Text="Se han impreso:" Style="{StaticResource PopupContentLabelStyle}" HorizontalOptions="Center" />
+                        <Label x:Name="Text" Text="{Binding Text}" Style="{StaticResource PopupContentLabelStyle}" FontSize="10" HorizontalOptions="Center" />
+                    </StackLayout>
+                    
+                </Frame>
+            </ScrollView>
+            <!--Footer Panic Button-->
+            <ContentView AbsoluteLayout.LayoutFlags="YProportional" Margin="0,0,0,0">
+                <Grid RowSpacing="0" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <pancake:PancakeView Grid.Row="0" BackgroundColor="#CB2833" Padding="0"
+                        CornerRadius="15,15,0,0" VerticalOptions="EndAndExpand" HeightRequest="50">
+                        <Button x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+                    </pancake:PancakeView>
+                </Grid>
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

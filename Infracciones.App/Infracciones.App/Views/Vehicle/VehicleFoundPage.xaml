@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:custom="clr-namespace:Infracciones.App.Controls"
+    xmlns:model="clr-namespace:Infracciones.App.ViewModels.Vehicle"
+    xmlns:converters="clr-namespace:Infracciones.App.Converters"
+	x:Class="Infracciones.App.Views.Vehicle.VehicleFoundPage"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundImageSource="Background.png">
+
+    <ContentPage.Title>
+        <OnPlatform x:TypeArguments="x:String">
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+        </OnPlatform>
+    </ContentPage.Title>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <converters:ZeroToEmptyStringConverter x:Key="zeroToEmptyString"/>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Spacing="0" Margin="0" Padding="0">
+            <ScrollView Margin="0" VerticalOptions="FillAndExpand" HorizontalOptions="Start">
+                <ScrollView.VerticalOptions>
+                    <OnIdiom x:TypeArguments="LayoutOptions" Default="CenterAndExpand" Phone="FillAndExpand" />
+                </ScrollView.VerticalOptions>
+                <Frame BackgroundColor="White" CornerRadius="17" Margin="10,5,10,-20" Padding="0">
+                    <Grid Margin="0" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!--HEADER-->
+                        <Grid Grid.Row="0" Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition  Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ImageButton Grid.Column="0" Source="icnBoxConEquisGreen.png" HeightRequest="40" x:Name="Close" Clicked="Close_Clicked"
+                                BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start"/>
+                            <Image Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                                Margin="3" Source="icnCarroLupaGreen.png" HeightRequest="25"/>
+                            <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="StartAndExpand" Spacing="0">
+                                <Label  Margin="5" VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" Text="Información"/>
+                            </StackLayout>
+                        </Grid>
+
+                        <!--Content-->
+                        <Grid Grid.Row="1" Padding="10, 10, 10, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".4*"/>
+                                <ColumnDefinition Width=".6*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--Responsable-->
+                            <StackLayout Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                VerticalOptions="Center"
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+						                VerticalOptions="Center"
+						                Style="{StaticResource LabelStyle}"
+						                Text="Responsable:"/>
+                                    <custom:CustomErrorEntry
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource CustomErrorEntryStyle}"
+                                        Text="{Binding Responsible.Value}"
+                                        Placeholder="Responsable"
+                                        Keyboard="Default"
+                                        MaxLength="256"
+                                        BorderErrorColor="#CB2833"
+                                        BorderSuccessColor="#96DEB0"
+                                        IsBorderErrorVisible="{Binding Responsible.IsNotValid, Mode=TwoWay}" />
+                                </StackLayout>
+                                <Label
+                                    HorizontalTextAlignment="End"
+                                    IsVisible="{Binding Responsible.IsNotValid}"
+                                    Style="{StaticResource SmallErrorLabelStyle}"
+                                    Text="{Binding Responsible.NotValidMessageError}" />
+                            </StackLayout>
+                            
+                            <!--<StackLayout Grid.Row="0" Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                HorizontalOptions="FillAndExpand">
+                                <Label
+						            VerticalOptions="Center"
+						            Style="{StaticResource LabelStyle}"
+						            Text="Responsable:"/>
+                                --><!--<Label
+						            Grid.Row="0"
+						            Grid.Column="1"
+						            Grid.ColumnSpan="3"
+						            VerticalOptions="Center"
+						            Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblResponsible"
+						            Text="{Binding Responsible}"/>--><!--
+                                <Entry 
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="FillAndExpand"
+                                    x:Name="EntResponsible"
+                                    Placeholder="Responsable"
+                                    Style="{StaticResource EntryStyle}"   
+                                    Text="{Binding Responsible}"
+                                    Keyboard="Default"/>
+                            </StackLayout>-->
+
+                            <StackLayout Grid.Row="1"
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Placa-->
+                                <Label Style="{StaticResource LabelStyle}"
+						            Text="Placa:"/>
+                                <Label Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblPlates"
+						            Text="{Binding Vehicle.Plates}"/>
+                                
+                            </StackLayout>
+                            
+                            <StackLayout Grid.Row="1"
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Origen-->
+                                <Label Style="{StaticResource LabelStyle}"
+						            Text="Origen:"/>
+                                <Label Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblOrigin"
+						            Text="{Binding Vehicle.Origin.Name}"/>
+                            </StackLayout>
+                            
+                            <StackLayout Grid.Row="2"
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Tipo-->
+                                <Label Style="{StaticResource LabelStyle}"
+						            Text="Tipo:"/>
+                                <Label Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblVehicleType"
+						            Text="{Binding Vehicle.VehicleType.Description}"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="2"
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Marca-->
+                                <Label Style="{StaticResource LabelStyle}"
+						            Text="Marca:"/>
+                                <Label Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblBrand"
+						            Text="{Binding Vehicle.Brand.Description}"/>
+                            </StackLayout>
+                            
+                            <StackLayout Grid.Row="3"
+                                Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Modelo-->
+                                <Label Style="{StaticResource LabelStyle}"
+						            Text="Modelo:"/>
+                                <Label Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblModel"
+						            Text="{Binding Vehicle.Model, Converter={StaticResource zeroToEmptyString}}"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="3"
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Submarca-->
+                                <Label Style="{StaticResource LabelStyle}"                       
+						            Text="Submarca:"/>
+                                <Label VerticalOptions="Center"
+						            Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblSubbrand"
+						            Text="{Binding Vehicle.Subbrand.Description}"/>
+                            </StackLayout>
+                            
+                            <StackLayout Grid.Row="4"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                Spacing="10">
+                                <!--Verificar Repuve-->
+                                <Label VerticalOptions="Center"
+						            Style="{StaticResource LabelStyle}"
+						            Text="Verificar REPUVE:"/>
+                                <Label Style="{StaticResource ContentLabelStyle}"
+                                    x:Name="LblRepuve"
+						            Text="{Binding Vehicle.CheckRepuveString}"/>
+                            </StackLayout>
+
+                            <Frame Grid.Row="5"
+						        Grid.ColumnSpan="2"     
+                                Padding="5,2,5,2"
+						        BorderColor="#00B140"                           
+						        HasShadow="False">
+                                <Grid VerticalOptions="Start">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackLayout Grid.Row="0"
+                                        Orientation="Horizontal">
+                                        <Label Style="{StaticResource SubtitleLabelStyle}"
+                                            HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+						                    Text="Registro del Vehículo"/>
+                                        <Image x:Name="CdmxLogoImage" 
+								            Source="LogoCDMX.png"                                
+								            HorizontalOptions="EndAndExpand"
+                                            VerticalOptions="Center"
+								            HeightRequest="30"/>
+                                    </StackLayout>
+
+                                    <Label Grid.Row="1"
+								        FontFamily="SourceSansPro-Regular"
+								        Style="{StaticResource LabelStyle}"
+								        Text="Sanciones:"/>
+
+                                    <StackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Vehicle.Sanctions}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width=".35*" />
+                                                        <ColumnDefinition Width=".4*" />
+                                                        <ColumnDefinition Width=".25*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" FontSize="Micro" Text="{Binding Key}" />
+                                                    <Label Grid.Column="1" FontSize="Micro" Text="{Binding SanctionReason.Description}" />
+                                                    <Label Grid.Column="2" FontSize="Micro" Text="{Binding Amount, StringFormat='{0:C}'}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+
+                                    <BoxView Grid.Row="3" Color="Gray"
+								        HeightRequest="1"
+								        HorizontalOptions="Fill" />
+
+                                    <Label Grid.Row="4"
+								        Style="{StaticResource LabelStyle}"
+								        Text="Verificación:"/>
+
+                                    <BoxView Grid.Row="5" Color="Gray"
+								        HeightRequest="1"
+								        HorizontalOptions="Fill" />
+
+                                    <Label Grid.Row="6"
+								        Style="{StaticResource LabelStyle}"
+								        Text="REPUVE:"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+
+                        <!--ACTION BUTTONS-->
+                        <Grid Grid.Row="2"
+                            Margin="10,0,10,0" 
+                            Padding="0,0,0,0" 
+                            ColumnSpacing="10" 
+                            RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="75" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame Grid.Row="0" 
+                                Grid.Column="0" 
+                                HeightRequest="40" 
+                                Padding="4" 
+                                Margin="0" 
+                                CornerRadius="35" 
+                                HasShadow="True" 
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Center">
+                                <ImageButton 
+                                    Source="icnCirculoBasuraRed.png" 
+                                    BackgroundColor="Transparent" 
+                                    x:Name="BtnCancel" 
+                                    Clicked="BtnCancel_Clicked"/>
+                            </Frame>
+                            <!-- IsVisible="{Binding HasCompleteInformation}" -->
+                            <Button Grid.Row="0" 
+                                Grid.Column="1" 
+                                x:Name="BtnMakeSanction" 
+                                Margin="0,16" 
+                                Clicked="BtnMakeSanction_Clicked" 
+                                Style="{StaticResource PrimarynButton}"                                    
+                                 
+                                IsEnabled="{Binding IsValid}"
+                                Text="Generar sanción"/>
+                        </Grid>
+                    </Grid>
+                </Frame>
+            </ScrollView>
+
+            <!--Footer Panic Button-->
+            <ContentView AbsoluteLayout.LayoutFlags="YProportional" Margin="0,0,0,0">
+                <Grid RowSpacing="0" Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <pancake:PancakeView Grid.Row="0" BackgroundColor="#CB2833" Padding="0"
+                        CornerRadius="15,15,0,0" VerticalOptions="EndAndExpand" HeightRequest="50">
+                        <Button x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+                    </pancake:PancakeView>
+                </Grid>
+            </ContentView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

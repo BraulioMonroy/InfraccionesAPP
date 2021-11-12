@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Infracciones.App.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+            </Style>
+
+            <!--  Common style for enabled label  -->
+            <Style x:Key="EnabledLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#00B140" />
+                <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
+                <Setter Property="FontSize" Value="13" />
+            </Style>
+
+            <!--  Common style for disabled label  -->
+            <Style x:Key="DisabledLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Gray" />
+                <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
+                <Setter Property="FontSize" Value="13" />
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+    
+</Application>
