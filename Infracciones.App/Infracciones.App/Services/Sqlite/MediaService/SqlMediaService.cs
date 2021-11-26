@@ -55,6 +55,20 @@ namespace Infracciones.Services.Sqlite.MediaService
             return items;
         }
 
+        public async Task<IList<MediaModel>> GetAllVideosAndImages(SanctionReason sanctionReason)
+        {
+            var items = new List<MediaModel>();
+            using (await Mutex.LockAsync().ConfigureAwait(false))
+            {
+                items = await _sqlCon.Table<MediaModel>()
+                    .Where(o => o.SanctionReasonId == (int)sanctionReason && o.MediaType.Equals("Image") || o.MediaType.Equals("Video"))
+                    .ToListAsync()
+                    .ConfigureAwait(false);
+            }
+
+            return items;
+        }
+
         public async Task<IList<MediaModel>> GetImages(SanctionReason sanctionReason)
         {
             var items = new List<MediaModel>();

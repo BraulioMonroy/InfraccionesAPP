@@ -18,7 +18,7 @@ namespace Infracciones.ViewModels.Media
     {
         private static SqlMediaService _sqlMediaService = new SqlMediaService();
 
-        public ObservableCollection<ImageModel> Images { get; set; }
+        public ObservableCollection<MediaModel> Medias { get; set; }
         public TypeSanctionModel TypeSanction { get; set; } = new TypeSanctionModel();
         public Command RemoveMediaCommand { get; set; }
 
@@ -30,7 +30,7 @@ namespace Infracciones.ViewModels.Media
         public CarouselViewModel(TypeSanctionModel typeSanction)
         {
             TypeSanction = typeSanction;
-            Images = new ObservableCollection<ImageModel>();
+            Medias = new ObservableCollection<MediaModel>();
             RemoveMediaCommand = new Command<int>(async (id) => await RemoveMedia(id));
             Task.Run(async () => await BindingCarousel());
         }
@@ -39,26 +39,31 @@ namespace Infracciones.ViewModels.Media
         {
             try
             {
-                var results = await _sqlMediaService.GetImages(TypeSanction.SanctionReason);
+                var results = await _sqlMediaService.GetAllVideosAndImages(TypeSanction.SanctionReason);
+                
 
                 if (results.Count > 0)
                 {
-                    foreach (var image in results)
+                    foreach (var item in results)
                     {
                         //var memoryStream = new MemoryStream(image.Image);
 
-                        var aux = new ImageModel();
-                        aux.Id = image.Id;
+                        var aux = new MediaModel();
+                        aux.Id = item.Id;
+                        aux.MediaType = item.MediaType;
+                        aux.isImage = item.isImage;
                         //aux.ImageSource = ImageSource.FromStream(() => memoryStream);
-                        aux.ImagePath = image.ImagePath;
-                        aux.ImageSource = ImageSource.FromFile(aux.ImagePath);
+                        aux.MediaPath = item.MediaPath;
+                      
 
-                        if(aux.ImageSource != null)
+                        if(aux.MediaPath != null)
                         {
-                            Images.Add(aux);
+                            Medias.Add(aux);
                         }
                     }
                 }
+
+              
             }
             catch (Exception ex)
             {
@@ -73,13 +78,13 @@ namespace Infracciones.ViewModels.Media
                 var media = await _sqlMediaService.GetById(id);
                 if (media == null) throw new Exception("No se encontro el elemento multimedia. ");
 
-                if (File.Exists(media.ImagePath))
-                    File.Delete(media.ImagePath);
+                if (File.Exists(media.MediaPath))
+                    File.Delete(media.MediaPath);
 
                 await _sqlMediaService.Remove(media);
 
-                var imageToRemove = Images.FirstOrDefault(x => x.Id == media.Id);
-                Images.Remove(imageToRemove);
+                var mediaToRemove = Medias.FirstOrDefault(x => x.Id == media.Id);
+                Medias.Remove(mediaToRemove);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using Infracciones.Services.Media;
+﻿using Infracciones.App.Models;
+using Infracciones.Services.Media;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -19,6 +20,11 @@ namespace Infracciones.ViewModels.Media
             //    OnPropertyChanged(); 
             //}
         }
+
+        public string VideoPath { get; set; }
+        public int SanctionId { get; set; }
+
+        public TypeSanctionModel TypeSanction { get; set; }
 
         //public ICommand TakeVideoCommand { get; private set; }
         //public ICommand PickVideoCommand { get; private set; }

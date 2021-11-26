@@ -1,6 +1,8 @@
 ﻿using Android.Runtime;
 using Infracciones.Helpers;
+using System;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace Infracciones.App.ViewModels.Vehicle
 {
@@ -38,10 +40,17 @@ namespace Infracciones.App.ViewModels.Vehicle
             CheckRepuve = new Field<object> { Value = false };
             IsValid = false;
 
+            Validate(nameof(Responsible));
             Validate(nameof(Plates));
             Validate(nameof(Model));
+            Responsible.PropertyChanged += Responsible_PropertyChanged;
             Plates.PropertyChanged += Plates_PropertyChanged;
             Model.PropertyChanged += Model_PropertyChanged;
+        }
+
+        private void Responsible_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Responsible.Value)) Validate(nameof(Responsible));
         }
 
         private void Plates_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -58,12 +67,34 @@ namespace Infracciones.App.ViewModels.Vehicle
         {
             switch (propertyName)
             {
+                case nameof(Responsible):
+                    if (string.IsNullOrEmpty(Responsible.Value))
+                    {
+                        Responsible.IsNotValid = true;
+                        Responsible.NotValidMessageError = "Obligatorio.";
+                    }
+                    else if (!Regex.Match(Responsible.Value, @"^[a-zA-Z]+$").Success || Responsible.Value.Length > 50)
+                    {
+                        Responsible.IsNotValid = true;
+                        Responsible.NotValidMessageError = "No debe contener carácteres especiales y numéricos y/o debe ser menor a 50 carácteres";
+                    }
+                    else
+                    {
+                        Responsible.IsNotValid = false;
+                        Responsible.NotValidMessageError = "";
+                    }
+                    break;
                 case nameof(Plates):
                     {
                         if (string.IsNullOrEmpty(Plates.Value))
                         {
                             Plates.IsNotValid = true;
                             Plates.NotValidMessageError = "Obligatorio.";
+                        }
+                        else if (!Regex.Match(Plates.Value, @"^[a-zA-Z0-9]+$").Success || Plates.Value.Length > 7)
+                        {
+                            Plates.IsNotValid = true;
+                            Plates.NotValidMessageError = "No debe contener carácteres especiales y/o debe ser menor a 7 carácteres";
                         }
                         else
                         {
@@ -74,27 +105,41 @@ namespace Infracciones.App.ViewModels.Vehicle
                     }
                 case nameof(Model):
                     {
-                        if (Model.Value != null)
+                         if (Model.Value != null)
                         {
                             var outParse = 0;
                             if (!int.TryParse(Model.Value.ToString(), out outParse))
                             {
+                                    Model.IsNotValid = true;
+                                    Model.NotValidMessageError = "Solo se permiten números enteros.";
+                               
+                            }
+                            else if(int.Parse(Model.Value.ToString()) < 1950 || int.Parse(Model.Value.ToString()) > DateTime.Now.Year + 1)
+                            {
                                 Model.IsNotValid = true;
-                                Model.NotValidMessageError = "Solo se permiten números enteros.";
+                                Model.NotValidMessageError = $"La placa debe ser mayor a 1950 y menor {DateTime.Now.Year + 1}";
+
                             }
                             else
                             {
+
                                 Model.IsNotValid = false;
                                 Model.NotValidMessageError = "";
                             }
+                        } else
+                        {
+                            Model.IsNotValid = true;
+                            Model.NotValidMessageError = "Obligatorio.";
                         }
                         break;
                     }
                 default: break;
             }
 
-            if (Plates.IsNotValid || Responsible.IsNotValid || Model.IsNotValid) IsValid = false;
-            else IsValid = true;
+            if (Plates.IsNotValid || Responsible.IsNotValid || Model.IsNotValid) 
+                IsValid = false;
+            else 
+                IsValid = true;
         }
 
         #endregion

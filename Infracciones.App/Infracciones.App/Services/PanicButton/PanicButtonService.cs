@@ -3,6 +3,7 @@ using Infracciones.Services.Endpoints;
 using System.Threading.Tasks;
 using Infracciones.Services.Logging;
 using System;
+using System.Collections;
 
 namespace Infracciones.Services.PanicButton
 {
@@ -11,12 +12,12 @@ namespace Infracciones.Services.PanicButton
         private static readonly PanicButtonEndpoints _endpoint = new PanicButtonEndpoints();
         private static readonly LogService _logService = new LogService();
 
-        public static async Task<PanicButtonResponseModel> Add(PanicButtonRequestModel panicButtonRequest)
+        public static async Task<ArrayList> Add(PanicButtonFocus panicButtonRequestFocus)
         {
             try
             {
-                panicButtonRequest.Log = await _logService.CreateLog();
-                return await _endpoint.Add(panicButtonRequest);
+               // panicButtonRequest.Log = await _logService.CreateLog();
+                return await _endpoint.Add(panicButtonRequestFocus);
             }
             catch (Exception ex)
             {

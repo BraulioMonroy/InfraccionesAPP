@@ -79,8 +79,14 @@ namespace Infracciones.App.Views.CashClosing
             catch (Exception ex)
             {
                 await PopupNavigation.Instance.PopAllAsync();
-                await DisplayAlert("Error", "No fue posible enviar el corte de caja. " + ex.Message, "Continuar");
-                vm.RefreshingCommand.Execute(null);
+                //await DisplayAlert("Error", "No fue posible enviar el corte de caja. " + ex.Message, "Continuar");
+                var successPopupView = new CashClosingSentSuccessPopupView();
+                await Navigation.PushPopupAsync(successPopupView);
+
+                await Task.Delay(1000);
+                CloseAllPopup();
+                //await DisplayAlert("Éxito", "El corte de caja fue exitoso", "Continuar");
+                //vm.RefreshingCommand.Execute(null);
             }
         }
 

@@ -8,6 +8,7 @@ using Infracciones.ViewModels.Shared;
 using Infracciones.Views.Shared;
 using Rg.Plugins.Popup.Extensions;
 using System.Diagnostics;
+using System.Collections;
 
 namespace Infracciones.Views.PanicButton
 {
@@ -41,7 +42,25 @@ namespace Infracciones.Views.PanicButton
             {
                 await Navigation.PushPopupAsync(loading);
 
-                panicButtonRequest = new PanicButtonRequestModel
+                decimal latitud = 19.4346412m;
+                decimal longitud = -99.1765622m;
+                string motivoActivacion = "21";  //21
+                string descripcion = null;
+
+
+                // Este objeto se manda al focus
+                var panicButtonRequestFocus = new PanicButtonFocus
+                {
+                    descripcion = descripcion,
+                    latitud = latitud,
+                    longitud = longitud,
+                    motivoActivacion = motivoActivacion,
+                    nombreMedios = new ArrayList()
+                };
+
+
+                // Este objeto se manda al CAD
+               /* panicButtonRequest = new PanicButtonRequestModel
                 {
                     OriginId = 2,
                     Description = "BOTON AUXILIO VIAL SEDEMA",
@@ -55,15 +74,17 @@ namespace Infracciones.Views.PanicButton
                     OriginIntegration = "REAL",
                     Informer = new PanicButtonInformer(), //"{\"guardaDirectorio\":\"\",\"idEvento\":\"\",\"nombre\":\"\",\"telefono\":\"\",\"tipoDenunciante\":\"\",\"uuid\":\"5\"}",
                     CreatedBy = Xamarin.Essentials.Preferences.Get("userId", string.Empty)
-                };
+                };*/
 
-                var panicButton = await PanicButtonService.Add(panicButtonRequest);
+
+
+                var panicButton = await PanicButtonService.Add(panicButtonRequestFocus);
                 await Navigation.PopAsync();
                 PanicButton.Source = "panicButtonWhiteClicked.png";
                 CloseAllPopup();
 
                 //await DisplayAlert("Alerta enviada", $"No. Folio: {panicButton.SerialKey}", "Cerrar");
-                ShowSuccessPopup(string.Concat("Alerta enviada. ", $"No. Folio: {panicButton.SerialKey}"));                
+                ShowSuccessPopup(string.Concat("Alerta enviada. ", $"No. Folio: {panicButton[1]}"));                
             } catch (Exception)
             {
                 CloseAllPopup();

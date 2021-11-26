@@ -3,6 +3,7 @@ using Infracciones.Models;
 using Infracciones.Services.Token;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,31 +22,39 @@ namespace Infracciones.Services.Endpoints
             ReleaseUrl = UriFactory.PanicButtonRequest.Release();
         }
 
-        public async Task<PanicButtonResponseModel> Add(PanicButtonRequestModel entity)
+        public async Task<ArrayList> Add(PanicButtonFocus entity)
         {
             var _accessToken = await TokenService.GetToken();
 
-            PanicButtonResponseModel result = default;
+
+           // HttpClientHandler handler = new HttpClientHandler();
+           // handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+
+            ArrayList toJSON = new ArrayList();
             using (var httpClient = new HttpClient())
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+                //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
 
                 var content = JsonConvert.SerializeObject(entity);
-                var response = await httpClient.PostAsync(new Uri(AddUrl), new StringContent(content, Encoding.UTF8, "application/json"));
+                var response = await httpClient.PostAsync(new Uri("http://54.69.118.16:8088/reporteAlarma"), new StringContent(content, Encoding.UTF8, "application/json"));
 
                 if (!response.IsSuccessStatusCode)
                     throw new Exception(await response.Content.ReadAsStringAsync());
 
-                await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>
+                string Result = await response.Content.ReadAsStringAsync();
+                toJSON = JsonConvert.DeserializeObject<ArrayList>(Result);
+
+                /*await response.Content.ReadAsStringAsync().ContinueWith((Task<string> x) =>
                 {
                     if (x.IsFaulted)
                         throw x.Exception;
 
                     result = JsonConvert.DeserializeObject<PanicButtonResponseModel>(x.Result);
-                });
+                });*/
             }
 
-            return result;
+            return toJSON;
         }
 
         public async Task<PanicButtonRequestModel> Release(PanicButtonRequestModel entity)

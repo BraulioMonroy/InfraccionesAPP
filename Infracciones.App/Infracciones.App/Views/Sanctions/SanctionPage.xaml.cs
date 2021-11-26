@@ -240,7 +240,7 @@ namespace Infracciones.App.Views.Sanctions
                     var media = await _sqlMediaService.GetAllBySantionReason(sanctionReason);
                     if (media.Count > 0)
                     {
-                        var imagePaths = media.Select(x => x.ImagePath).ToList();
+                        var imagePaths = media.Select(x => x.MediaPath).ToList();
                         await _mediaFileService.AddMedia(sanction.Id, imagePaths);
                     }
                 }

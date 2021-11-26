@@ -154,7 +154,7 @@
                                     Text="{Binding Model.Value}"
                                     Placeholder="Modelo"
                                     Keyboard="Numeric"
-                                    MaxLength="4"          
+                                    MaxLength="4"    
                                     BorderErrorColor="#CB2833"
                                     BorderSuccessColor="#96DEB0"
                                     IsBorderErrorVisible="{Binding Model.IsNotValid, Mode=TwoWay}" />

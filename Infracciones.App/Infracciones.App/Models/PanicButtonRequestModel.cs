@@ -1,4 +1,7 @@
-﻿namespace Infracciones.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Infracciones.Models
 {
     public class PanicButtonRequestModel
     {         
@@ -17,6 +20,14 @@
         public LogModel Log { get; set; }
     }
 
+    public class PanicButtonFocus
+    {
+        public string descripcion { get; set; }
+        public decimal latitud { get; set; }
+        public decimal longitud { get; set; }
+        public string motivoActivacion { get; set; }
+        public ArrayList nombreMedios { get; set; }
+    }
     public class PanicButtonInformer
     {
         public string GuardaDirectorio { get; set; } = string.Empty;

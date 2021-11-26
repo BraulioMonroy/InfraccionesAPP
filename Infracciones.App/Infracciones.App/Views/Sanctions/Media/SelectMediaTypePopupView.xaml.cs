@@ -69,12 +69,18 @@ namespace Infracciones.Views.Sanctions.Media
                 if (IsGettingMedia) return;
 
                 IsGettingMedia = true;
-                var videoViewModel = new VideoViewModel();
                 var mediaFile = await _mediaService.TakeVideo();
 
                 if (mediaFile != null)
                 {
-                    videoViewModel.VideoURL = mediaFile.Path;
+
+
+                    var videoViewModel = new VideoViewModel
+                    {
+                        VideoURL = mediaFile.Path,
+                        VideoPath = mediaFile.Path,
+                        TypeSanction = (TypeSanctionModel)this.BindingContext
+                    };
 
                     var popupView = new VideoPopupView
                     {

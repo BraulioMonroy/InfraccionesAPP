@@ -38,10 +38,11 @@ namespace Infracciones.Views.Sanctions.Media
 
                 var image = new MediaModel();
                 image.MediaType = "Image";
+                image.isImage = true;
                 image.OfficialId = Preferences.Get("userId", string.Empty);
                 image.SanctionReasonId = (int)vm.TypeSanction.SanctionReason;
                 //image.Image = stream.ToByteArray();
-                image.ImagePath = vm.PhotoPath;
+                image.MediaPath = vm.PhotoPath;
 
                 await _sqliteService.Insert(image);
                 await PopupNavigation.Instance.PopAsync(true);

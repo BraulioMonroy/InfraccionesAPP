@@ -16,6 +16,9 @@ namespace Infracciones.Views.Sanctions.Media
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CarouselGalleryPage : ContentPage
     {
+        private static SqlMediaService _sqliteService = new SqlMediaService();
+
+
         public CarouselGalleryPage()
         {
             InitializeComponent();
@@ -24,6 +27,7 @@ namespace Infracciones.Views.Sanctions.Media
         public CarouselGalleryPage(TypeSanctionModel typeSanction)
         {
             InitializeComponent();
+            var entitities = _sqliteService.GetAll();
 
             var vm = new CarouselViewModel(typeSanction);
             BindingContext = vm;
