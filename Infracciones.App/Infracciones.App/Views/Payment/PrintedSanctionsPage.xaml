@@ -4,11 +4,12 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Class="Infracciones.Views.Payment.PrintedSanctionsPage"
     NavigationPage.HasNavigationBar="False"
-    BackgroundImageSource="Background.png">
+    BackgroundImageSource="Background_blue.png"
+	BackgroundColor="White">
 
     <ContentPage.Title>
         <OnPlatform x:TypeArguments="x:String">
-            <On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="PROMAD" />
         </OnPlatform>
     </ContentPage.Title>
 
@@ -26,71 +27,85 @@
                 <ScrollView.VerticalOptions>
                     <OnIdiom x:TypeArguments="LayoutOptions" Default="CenterAndExpand" Phone="FillAndExpand" />
                 </ScrollView.VerticalOptions>
-                <Frame BackgroundColor="White" CornerRadius="17" Margin="10,5,10,-20" Padding="0">
-                    <Grid Margin="0" Padding="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <!--HEADER-->
-                        <Grid Grid.Row="0" Padding="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition  Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <ImageButton Grid.Column="0" Source="icnBoxConEquisGreen.png" HeightRequest="40" x:Name="Close" Clicked="Close_Clicked"
-                                BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start"/>
-                            <Image Grid.Column="1" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
-                                Margin="3" Source="icnSancionesGreen.png" HeightRequest="25"/>
-                            <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Start" Spacing="0">
-                                <Label  Margin="5" VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" Text="Sanciones /" FontSize="13"/>
-                                <Label VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" TextTransform="Default" Text="Configuración de pago" FontSize="13"/>
-                            </StackLayout>
-                        </Grid>
 
-                        <!--CONTENT-->
-                        <Frame Grid.Row="1" Padding="10" Margin="10" CornerRadius="17" HasShadow="True">
-                            <StackLayout Orientation="Vertical" Spacing="5">
-                                <Image Source="icnImprimirGreen.png"/>
-                                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                                    <Label Text="Se han impreso" Style="{StaticResource PopupContentLabelStyle}"/>
-                                    <Label Text="{Binding TotalSanctions}" Style="{StaticResource PopupContentLabelStyle}" />
-                                    <Label Text="sanciones" Style="{StaticResource PopupContentLabelStyle}"/>
-                                </StackLayout>
-                                <BoxView Color="#00B140" HeightRequest="1"/>
-                                <BoxView Color="#00B140" HeightRequest="1"/>
-                                <Label Text="¿Desea terminar el proceso?" Style="{StaticResource PopupContentLabelStyle}" HorizontalOptions="Center" />
-                                <Grid Margin="10,0,10,0" Padding="0" ColumnSpacing="15" RowSpacing="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Button Grid.Row="0" x:Name="BtnEndProcess" Margin="0,16" Clicked="BtnEndProcess_Clicked"  Style="{StaticResource PrimarynButton}" Text="Finalizar proceso"/>
-                                </Grid>
-                            </StackLayout>
-                        </Frame>
+                <StackLayout Margin="10,5,10,-20" Padding="0">
 
-                        <!--ACTION BUTTONS-->
-                        <Grid Grid.Row="3" Margin="10,0,10,0" Padding="0,0,0,0" ColumnSpacing="15" RowSpacing="0">
+                    <Frame BackgroundColor="Transparent">
+                        <Image Source="logo.png" HorizontalOptions="CenterAndExpand" />
+                    </Frame>
+
+
+                    <Frame BackgroundColor="White" CornerRadius="17">
+                        <Grid Margin="0" Padding="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <Button Grid.Row="0" x:Name="BtnPay" Margin="0,16" Clicked="BtnPay_Clicked"  Style="{StaticResource PrimarynButton}" Text="Pagar"/>
-                        </Grid>
+                            <!--HEADER-->
+                            <Grid Grid.Row="0" Padding="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition  Width="20"/>
+                                </Grid.ColumnDefinitions>
 
-                    </Grid>
-                </Frame>
+                                <Image Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" 
+                        Margin="3" Source="sanctionBlue.png" HeightRequest="25"/>
+                                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="StartAndExpand" Spacing="0">
+                                    <Label  Margin="5" VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" Text="Sanciones /" FontSize="13"/>
+                                    <Label VerticalOptions="Center" Style="{StaticResource TitleLabelStyle}" TextTransform="Default" Text="Configuración de pago" FontSize="13"/>
+                                </StackLayout>
+                                <ImageButton Grid.Column="2" Source="closeBlue.png" HeightRequest="40" x:Name="Close" Clicked="Close_Clicked"
+                        BackgroundColor="Transparent" HorizontalOptions="Start" VerticalOptions="Start"/>
+                            </Grid>
+
+                            <!--CONTENT-->
+                            <Frame Grid.Row="1" Padding="10" Margin="10" CornerRadius="17" HasShadow="True">
+                                <StackLayout Orientation="Vertical" Spacing="5">
+                                    <Image Source="icnImprimirGreen.png"/>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                        <Label Text="Se han impreso" Style="{StaticResource PopupContentLabelStyle}"/>
+                                        <Label Text="{Binding TotalSanctions}" Style="{StaticResource PopupContentLabelStyle}" />
+                                        <Label Text="sanciones" Style="{StaticResource PopupContentLabelStyle}"/>
+                                    </StackLayout>
+                                    <BoxView Color="#00B140" HeightRequest="1"/>
+                                    <BoxView Color="#00B140" HeightRequest="1"/>
+                                    <Label Text="¿Desea terminar el proceso?" Style="{StaticResource PopupContentLabelStyle}" HorizontalOptions="Center" />
+                                    <Grid Margin="10,0,10,0" Padding="0" ColumnSpacing="15" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Row="0" x:Name="BtnEndProcess" Margin="0,16" Clicked="BtnEndProcess_Clicked"  Style="{StaticResource PrimarynButton}" Text="Finalizar proceso"/>
+                                    </Grid>
+                                </StackLayout>
+                            </Frame>
+
+                            <!--ACTION BUTTONS-->
+                            <Grid Grid.Row="3" Margin="10,0,10,0" Padding="0,0,0,0" ColumnSpacing="15" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" x:Name="BtnPay" Margin="0,16" Clicked="BtnPay_Clicked"  Style="{StaticResource PrimarynButton}" Text="Pagar"/>
+                            </Grid>
+
+                        </Grid>
+                    </Frame>
+                </StackLayout>
             </ScrollView>
             <!--Footer Panic Button-->
             <ContentView AbsoluteLayout.LayoutFlags="YProportional" Margin="0,0,0,0">
-                <Grid RowSpacing="0" Padding="0">
+                <Grid RowSpacing="0" VerticalOptions="Center" Padding="0" Margin="50,10,50,50">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <pancake:PancakeView Grid.Row="0" BackgroundColor="#CB2833" Padding="0"
-                        CornerRadius="15,15,0,0" VerticalOptions="EndAndExpand" HeightRequest="50">
-                        <Button x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+
+                    <pancake:PancakeView Grid.Row="0" BackgroundColor="#081C30" Padding="0" Margin="50,0,50,0"
+                    CornerRadius="20" VerticalOptions="Center" HeightRequest="50" HorizontalOptions="Center">
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Image HorizontalOptions="Start" Source="panicButton.png" x:Name="iconPanic" HeightRequest="25" WidthRequest="25" Margin="10,0,0,0"/>
+                            <Button  HorizontalOptions="StartAndExpand" x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+                        </StackLayout>
                     </pancake:PancakeView>
                 </Grid>
             </ContentView>

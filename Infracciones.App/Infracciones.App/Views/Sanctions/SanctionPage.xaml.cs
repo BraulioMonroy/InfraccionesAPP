@@ -212,8 +212,8 @@ namespace Infracciones.App.Views.Sanctions
 
                 await Navigation.PushPopupAsync(loading);
 
-                if (string.IsNullOrEmpty(EntResponsible.Text))
-                    throw new Exception("Debe de especificar al Responsable del vehículo.");
+               // if (string.IsNullOrEmpty(EntResponsible.Text))
+                   // throw new Exception("Debe de especificar al Responsable del vehículo.");
 
                 var sanctions = new SanctionDTO
                 {

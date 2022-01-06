@@ -33,7 +33,7 @@
         <StackLayout Margin="5"
                 Orientation="Vertical"
                 VerticalOptions="Center">
-            <ActivityIndicator IsRunning="True" Color="#00B140" />
+            <ActivityIndicator IsRunning="True" Color="#03444D" />
             <Label Text="{Binding Text}" 
                 Style="{Binding TextStyle}"
                 x:Name="progressLabel" 

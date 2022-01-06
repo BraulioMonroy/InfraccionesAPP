@@ -6,12 +6,13 @@
              mc:Ignorable="d"
 			 x:Class="Infracciones.App.Views.Home.HomePage"
 			 NavigationPage.HasNavigationBar="False"
-             BackgroundImageSource="Background.png"
+             
+             BackgroundImageSource="Background_blue.png"
 			 BackgroundColor="White">
 
     <ContentPage.Title>
         <OnPlatform x:TypeArguments="x:String">
-            <On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="PROMAD" />
         </OnPlatform>
     </ContentPage.Title>
 
@@ -24,13 +25,13 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Spacing="0">
+        <StackLayout Orientation="Vertical" Spacing="0" >
             <Grid VerticalOptions="Start" Padding="15,5,15,0">
                 <Grid.BindingContext>
                     <viewModel:SectionsViewModel />
                 </Grid.BindingContext>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="100"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -40,16 +41,16 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Header-->
-                <Frame Grid.Column="0" Grid.ColumnSpan="2" Padding="5,5,42,5" 
-                    HorizontalOptions="FillAndExpand" BackgroundColor="White" CornerRadius="35">
-                    <StackLayout Orientation="Horizontal" Padding="0">
-                        <Image Source="icnUsuarioGreen.png" HorizontalOptions="Start" />
-                        <Image Source="HeaderIcon.png" HorizontalOptions="EndAndExpand"/>
-                    </StackLayout>
-                </Frame>
-                <ImageButton Grid.Column="2" Margin="0" Padding="0" BackgroundColor="Transparent" Aspect="AspectFit"
-                    x:Name="ProfileButton" Source="icnMenuGreenWhite.png" Clicked="ProfileButton_Clicked" >
-                </ImageButton>
+
+                <StackLayout Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal" Margin="0,40,0,0">
+                    <Frame BackgroundColor="Transparent" CornerRadius="10" WidthRequest="40" Padding="0">
+                        <ImageButton BackgroundColor="Transparent" Aspect="AspectFit"
+                                    x:Name="ProfileButton" Source="icnMenuPurple.png" Clicked="ProfileButton_Clicked" HorizontalOptions="Center" >
+                        </ImageButton>
+                    </Frame>
+                    <Image Source="logo.png" HorizontalOptions="CenterAndExpand" />
+                </StackLayout >
+               
 
                 <!--Content-->
                 <ScrollView Grid.Row="1" Grid.ColumnSpan="3" VerticalOptions="FillAndExpand"
@@ -61,40 +62,47 @@
                     </ScrollView.VerticalOptions>
                     <flv:FlowListView 
                     FlowColumnCount="2"
+                        Margin="30,20,30,20"
                     SeparatorVisibility="None" 
                     HasUnevenRows="True"
                     FlowItemTapped="MainMenu_ItemTapped"
-	                FlowItemsSource="{Binding SectionsDetails}" >
+	                FlowItemsSource="{Binding SectionsDetails}">
                         <flv:FlowListView.FlowColumnTemplate>
                             <DataTemplate>
                                 <Frame Padding="0,20,0,0"
                                 Margin="5"
-                                HeightRequest="80"
-                                BorderColor="#cccccc"
+                                BackgroundColor="Transparent"
+                                HeightRequest="150"
+                                BorderColor="Transparent"
                                 CornerRadius="20"
                                 HasShadow="True">
-                                    <StackLayout Orientation="Vertical">
+                                    <StackLayout Orientation="Vertical" BackgroundColor="Transparent">
                                         <Image x:Name="{Binding Sectionkey}"
                                         Source="{Binding Image}"
-                                        HeightRequest="40"/>
+                                        HeightRequest="100"/>
                                         <Label Text="{Binding SectionName}"
                                        Style="{StaticResource MenuSectionLabelStyle}"/>
                                     </StackLayout>
                                 </Frame>
                             </DataTemplate>
                         </flv:FlowListView.FlowColumnTemplate>
+                        
                     </flv:FlowListView>
                 </ScrollView>
             </Grid>
 
             <!--Footer Panic Button-->
-            <Grid RowSpacing="0" VerticalOptions="EndAndExpand" Padding="0">
+            <Grid RowSpacing="0" VerticalOptions="Center" Padding="0" Margin="50,10,50,50">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <pancake:PancakeView Grid.Row="0" BackgroundColor="#CB2833" Padding="0"
-                    CornerRadius="15,15,0,0" VerticalOptions="EndAndExpand" HeightRequest="50">
-                    <Button x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+
+                <pancake:PancakeView Grid.Row="0" BackgroundColor="#081C30" Padding="0" Margin="50,0,50,0"
+                    CornerRadius="20" VerticalOptions="Center" HeightRequest="50" HorizontalOptions="Center">
+                    <StackLayout Orientation="Horizontal" Padding="5">
+                        <Image HorizontalOptions="Start" Source="panicButton.png" x:Name="iconPanic" HeightRequest="25" WidthRequest="25" Margin="10,0,0,0"/>
+                        <Button  HorizontalOptions="StartAndExpand" x:Name="PanicButton" Text="Botón de pánico" Style="{StaticResource PanicButton}" Clicked="PanicButton_Clicked" />
+                    </StackLayout>
                 </pancake:PancakeView>
             </Grid>
         </StackLayout>

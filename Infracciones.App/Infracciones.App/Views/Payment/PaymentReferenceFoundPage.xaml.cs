@@ -92,7 +92,7 @@ namespace Infracciones.App.Views.Payment
             else
             {
                 ChkEmisionGases.Color = Color.FromHex("#00B140");
-                FrameIcnEmisionDeGases.BackgroundColor = Color.FromHex("#00B140");
+                FrameIcnEmisionDeGases.BackgroundColor = Color.FromHex("#015877");
                 _total += montoEmision;
                 Total.Text = string.Format("{0:C2}", _total);
             }
@@ -112,7 +112,7 @@ namespace Infracciones.App.Views.Payment
             else
             {
                 ChkFaltaDeDocumentos.Color = Color.FromHex("#00B140");
-                FrameIcnFaltaDeDocumentos.BackgroundColor = Color.FromHex("#00B140");
+                FrameIcnFaltaDeDocumentos.BackgroundColor = Color.FromHex("#015877");
                 _total += montoDocumentos;
                 Total.Text = string.Format("{0:C2}", _total);
             }
@@ -132,7 +132,7 @@ namespace Infracciones.App.Views.Payment
             else
             {
                 ChkCircularEnHorario.Color = Color.FromHex("#00B140");
-                FrameIcnCircularEnHorario.BackgroundColor = Color.FromHex("#00B140");
+                FrameIcnCircularEnHorario.BackgroundColor = Color.FromHex("#015877");
                 _total += montoCircular;
                 Total.Text = string.Format("{0:C2}", _total);
             }

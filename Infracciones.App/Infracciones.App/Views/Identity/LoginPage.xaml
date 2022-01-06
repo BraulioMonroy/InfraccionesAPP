@@ -6,11 +6,12 @@
 			 mc:Ignorable="d"
 			 x:Class="Infracciones.App.Views.Identity.LoginPage"
 			 NavigationPage.HasNavigationBar="False"             
+             BackgroundImageSource="Background_blue.png"
 			 BackgroundColor="White">
 	
 	<ContentPage.Title>
 		<OnPlatform x:TypeArguments="x:String">
-			<On Platform="iOS, UWP, WinRT, WinPhone" Value="SEDEMA: Sanciones y Cobros" />
+			<On Platform="iOS, UWP, WinRT, WinPhone" Value="PROMAD" />
 		</OnPlatform>
 	</ContentPage.Title>
 	
@@ -34,7 +35,9 @@
             
             <Image x:Name="HeaderIcon"                  
 				WidthRequest="275"
-				Source="HeaderIcon.png">
+                   Margin="0,0,30,0"
+                   HorizontalOptions="CenterAndExpand"
+				Source="logo.png">
             </Image>
 
             <Grid VerticalOptions="FillAndExpand"
@@ -114,11 +117,11 @@
 
                 <Label Grid.Row="5"  
 					Grid.ColumnSpan="4"
-					Margin="0,30"					
+					Margin="0,30,30,0"					
 					VerticalOptions="Start"
                     HorizontalOptions="Center"   
 					Text="Recuperar contraseña"
-                    Style="{StaticResource LinkLabelStyle}"   
+                    Style="{StaticResource LinkLabelLoginStyle}"   
 					x:Name="ForgotPasswordLabel">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer 
@@ -131,9 +134,9 @@
             <Label 
 				FontSize="12"
 				VerticalOptions="End"
-                Margin="0,0,0,10"
+                Margin="0,0,10,10"
 				HorizontalOptions="Center"
-				Text="Derechos Reservados. 2020 V.1.0"
+				Text="Derechos Reservados. 2022 V.1.0"
 				FontFamily="SourceSansPro-Regular"
 				TextColor="#9D9D9D"/>
         </StackLayout>

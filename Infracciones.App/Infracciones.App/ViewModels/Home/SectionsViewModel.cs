@@ -33,42 +33,42 @@ namespace Infracciones.App.ViewModels.Home
                 new HomeModel
                 {
                     SectionName = "Sanciones",
-                    Image = "icnSancionesGreen.png",
+                    Image = "icnSancionesWhiteBorder.png",
                     Description = "Sanciones",
                     Sectionkey = "Sanction"
                 },
                 new HomeModel
                 {
                     SectionName = "Información",
-                    Image = "icnCarroLupaGreen.png",
+                    Image = "icnCarroLupaWhite.png",
                     Description = "Información del vehículo",
                     Sectionkey = "Vehicle"
                 },
                 new HomeModel
                 {
                     SectionName = "Pago",
-                    Image = "icnPagoGreen.png",
+                    Image = "icnPagoWhite.png",
                     Description = "Pago",
                     Sectionkey = "Payment"
                 },
                 new HomeModel
                 {
                     SectionName = "Corte",
-                    Image = "icnCajaGreen.png",
+                    Image = "icnCajaWhite.png",
                     Description = "Corte de caja",
                     Sectionkey = "CashClosing"
                 },
                 new HomeModel
                 {
                     SectionName = "Consulta",
-                    Image = "icnConsultasGreen.png",
+                    Image = "icnConsultasWhite.png",
                     Description = "Consulta REPUVE",
                     Sectionkey = "Repuve"
                 },
                 new HomeModel
                 {
                     SectionName = "Calidad del Aire",
-                    Image = "icnCalidadDelAireGreen.png",
+                    Image = "icnCalidadDelAireWhite.png",
                     Description = "Calidad del Aire",
                     Sectionkey = "AirQuality"
                 }

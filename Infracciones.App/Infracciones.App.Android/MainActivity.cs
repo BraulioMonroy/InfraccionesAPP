@@ -17,7 +17,7 @@ using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace Infracciones.App.Droid
 {
-    [Activity(Label = "SEDEMA: Sanciones y Cobros", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation), 
+    [Activity(Label = "PROMAD", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation), 
         IntentFilter(new[] { "android.nfc.action.NDEF_DISCOVERED" }, DataHost = "zebra.com", DataPath = "/apps/r/nfc", DataScheme = "http", Categories = new[] { "android.intent.category.DEFAULT" }),
         IntentFilter(new[] { "android.nfc.action.NDEF_DISCOVERED" }, DataHost = "www.zebra.com", DataPath = "/apps/r/nfc", DataScheme = "http", Categories = new[] { "android.intent.category.DEFAULT" })]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -39,12 +39,14 @@ namespace Infracciones.App.Droid
         {
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
+            //Change the Status Bar Color
+           // Window.SetStatusBarColor(Android.Graphics.Color.Black);
    
             //TabLayoutResource = Resource.Layout.Tabbar;
             //ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-
+         
             Forms.SetFlags("CollectionView_Experimental");
             Forms.SetFlags("RadioButton_Experimental");
             Forms.SetFlags("CarouselView_Experimental");
@@ -80,7 +82,6 @@ namespace Infracciones.App.Droid
 
             // Change the status bar color: white. In Resources/Values
             this.SetStatusBarColor(Android.Graphics.Color.Transparent);         
-
             // Enable scrolling to the page when the keyboard is enabled
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
             
@@ -90,6 +91,27 @@ namespace Infracciones.App.Droid
             GetAccessCoarseLocationPermission();
             AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+        }
+
+        private void TransparentStatusBar()
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Kitkat)
+            {
+                // for covering the full screen in android..
+                Window.SetFlags(WindowManagerFlags.LayoutNoLimits, WindowManagerFlags.LayoutNoLimits);
+
+                // clear FLAG_TRANSLUCENT_STATUS flag:
+                Window.ClearFlags(WindowManagerFlags.TranslucentStatus);
+
+                // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+                Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+
+                Window.DecorView.SystemUiVisibility = 0;
+
+                Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
+
+            }
+
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

@@ -14,18 +14,19 @@
     <Style x:Key="MenuSectionLabelStyle" TargetType="Label">
         <Setter Property="TextColor" Value="#FFF" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
-        <Setter Property="BackgroundColor" Value="#00B140"/>
-        <Setter Property="FontSize" Value="13" />
+        <!-- <Setter Property="BackgroundColor" Value="#00B140"/> -->
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="VerticalOptions" Value="EndAndExpand"/>
         <Setter Property="VerticalTextAlignment" Value="Center"/>
         <Setter Property="HorizontalTextAlignment" Value="Center"/>
-        <Setter Property="HeightRequest" Value="25"/>
+        <Setter Property="HeightRequest" Value="45"/>
         <Setter Property="TextTransform" Value="Uppercase" />
     </Style>
 
     <!--  Common style for enabled label  -->
     <Style x:Key="EnabledLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="#00B140" />
+        <Setter Property="TextColor" Value="#015877" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
         <Setter Property="FontSize" Value="13" />
     </Style>
@@ -67,20 +68,27 @@
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
-    
-    
 
-    <!--  Common style for link label  -->
+
+
+    <!--  Common style for link label 00B140  -->
     <Style x:Key="LinkLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="#00B140" />
+        <Setter Property="TextColor" Value="White" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
         <Setter Property="FontSize" Value="14" />
         <Setter  Property="TextDecorations" Value="Underline"/>
     </Style>
 
+    <Style x:Key="LinkLabelLoginStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter  Property="TextDecorations" Value="Underline"/>
+    </Style>
+
     <!--  Common style for Titles label  -->
     <Style x:Key="TitleLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="#00B140" />
+        <Setter Property="TextColor" Value="#015877" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="TextTransform" Value="Uppercase" />
@@ -88,7 +96,7 @@
 
     <!--  Common style for Subtitles label  -->
     <Style x:Key="SubtitleLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="#00B140" />
+        <Setter Property="TextColor" Value="#3d849c" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
         <Setter Property="FontSize" Value="13" />
     </Style>
@@ -105,7 +113,18 @@
         <Setter Property="PlaceholderColor" Value="#8D8989" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
-        <Setter Property="TextColor" Value="#353535" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+        <Setter Property="ReturnType" Value="Done" />
+    </Style>
+
+    <Style x:Key="EntryStyleBlack" TargetType="Entry">
+        <Setter Property="PlaceholderColor" Value="#8D8989" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
+        <Setter Property="TextColor" Value="Black" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="HeightRequest" Value="40" />
         <Setter Property="VerticalOptions" Value="CenterAndExpand" />
@@ -126,7 +145,7 @@
 
     <!-- Common style for Main Buttons -->
     <Style x:Key="MainButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="#00B140" />
+        <Setter Property="BackgroundColor" Value="#015877" />
         <Setter Property="TextColor" Value="#FFFFFF" />
         <!--<Setter Property="TextTransform" Value="None" />-->
         <Setter Property="Margin" Value="10,0,10,0" />
@@ -137,10 +156,10 @@
 
     <!-- Common style for Primary Buttons -->
     <Style x:Key="PrimarynButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="#E4F0E8" />
-        <Setter Property="BorderColor" Value="#00B140"/>
+        <Setter Property="BackgroundColor" Value="#00698f" /> 
+        <Setter Property="BorderColor" Value="#025d7f"/>
         <Setter Property="BorderWidth" Value="2"/>
-        <Setter Property="TextColor" Value="#00B140" />
+        <Setter Property="TextColor" Value="#E4F0E8" />
         <!--<Setter Property="TextTransform" Value="None" />-->
         <Setter Property="Margin" Value="10,0,10,0" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
@@ -239,14 +258,14 @@
 
     <!--  Common style for popup profile labels  -->
     <Style x:Key="ProfileLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="#353535" />
+        <Setter Property="TextColor" Value="#c4d0d8" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
         <Setter Property="FontSize" Value="14" />
     </Style>
 
     <!--  Common style for popup profile data labels  -->
     <Style x:Key="ProfileDataLabelStyle" TargetType="Label">
-        <Setter Property="TextColor" Value="#898D8D" />
+        <Setter Property="TextColor" Value="#ecf6fc" />
         <Setter Property="FontFamily" Value="SourceSansPro-Regular" />
         <Setter Property="FontSize" Value="14" />
     </Style>
