@@ -5,7 +5,9 @@
         xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
         xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
         xmlns:viewModel="clr-namespace:Infracciones.ViewModels.Shared"
-        CloseWhenBackgroundIsClicked="False">
+        CloseWhenBackgroundIsClicked="False"
+        BackgroundImageSource="Background_blue.png"
+	    BackgroundColor="White">
     
     <pages:PopupPage.Resources>
         <ResourceDictionary>

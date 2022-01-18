@@ -4,7 +4,10 @@
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              xmlns:viewModel="clr-namespace:Infracciones.ViewModels.Shared"
              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
-             x:Class="Infracciones.Views.Shared.EditProfilePopupView">
+             x:Class="Infracciones.Views.Shared.EditProfilePopupView"
+                 CloseWhenBackgroundIsClicked="False"
+        BackgroundImageSource="Background_blue.png"
+	    BackgroundColor="White">
     <pages:PopupPage.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,14 +29,14 @@
             ScaleOut="1"/>
     </pages:PopupPage.Animation>
 
-    <Frame x:Name="FrameContainer" VerticalOptions="FillAndExpand" Padding="0" BackgroundColor="#E4F0E8">
+    <Frame x:Name="FrameContainer" VerticalOptions="FillAndExpand" Padding="0"  BackgroundColor="#081C30">
       <StackLayout Orientation="Vertical">
             <Grid VerticalOptions="Start" Padding="15,5,15,0">
                 <Grid.BindingContext>
                     <viewModel:ProfileViewModel />
                 </Grid.BindingContext>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -49,42 +52,105 @@
                 </Grid.ColumnDefinitions>
                 
                 <!--Header-->
-                <Frame Grid.Row="0" Grid.ColumnSpan="2" Padding="5,5,42,5" HasShadow="False" 
-                    HorizontalOptions="FillAndExpand" BackgroundColor="White" CornerRadius="35">
-                    <StackLayout Orientation="Horizontal" Padding="0">
-                        <Image Source="HeaderIcon.png" HorizontalOptions="CenterAndExpand"/>
-                    </StackLayout>
-                </Frame>
+
+                <StackLayout Grid.Column="0" Grid.ColumnSpan="2"  Orientation="Horizontal">
+                    <Frame BackgroundColor="Transparent" CornerRadius="10" WidthRequest="40" Padding="0">
+                        <ImageButton BackgroundColor="Transparent" Aspect="AspectFit"
+                                    x:Name="ProfileButton" Source="icnMenuPurple.png" Clicked="ToggleButton_Clicked" HorizontalOptions="Center" >
+                        </ImageButton>
+                    </Frame>
+                    <Image Source="logo.png" HorizontalOptions="CenterAndExpand" />
+                </StackLayout >
+
                 <!--Header-->
-                
-                <ImageButton Grid.Row="0" Grid.Column="2" Margin="0" Padding="0" BackgroundColor="Transparent"
-                    x:Name="ToggleButton" Source="icnCirculoCerrarGreen.png" Clicked="ToggleButton_Clicked">
-                </ImageButton>
-                
+
+
+
+
                 <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Date}"
-                    x:Name="CurrentDateLabel" Style="{StaticResource ProfileTitleLabel}"/>
-                <Label Grid.Row="1" Grid.Column="2"  Text="{Binding Time}"
+                    x:Name="CurrentDateLabel" TextColor="#00F5FF" Style="{StaticResource ProfileTitleLabel}"/>
+                <Label Grid.Row="1" Grid.Column="2" TextColor="#00F5FF"  Text="{Binding Time}"
                     x:Name="CurrentTimeLabel" Style="{StaticResource ProfileTitleLabel}"/>
 
-
-                <BoxView Grid.Row="2" Grid.ColumnSpan="3" Color="#00B140" Opacity="0.25" HeightRequest="1" />
+                <BoxView Grid.Row="2" Grid.ColumnSpan="3" Color="#00F5FF" Opacity="0.25" HeightRequest="1" />
 
 
                 <Frame Grid.Row="3" Grid.ColumnSpan="3" Margin="10"
-       BorderColor="Black"
-       CornerRadius="50"
-       HeightRequest="60"
-       WidthRequest="60"
-       IsClippedToBounds="True"
-       HorizontalOptions="Center"
-       VerticalOptions="Center"
+                       BorderColor="#00F5FF"
+                       
+                       CornerRadius="50"
+                       HeightRequest="60"
+                       WidthRequest="60"
+                       IsClippedToBounds="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
                        >
 
-                    <ImageButton BackgroundColor="Transparent" Source="icnCirculoCerrarGreen.png" HorizontalOptions="Center"  
-                                 Aspect="AspectFill" HeightRequest="100" WidthRequest="100">
-                    </ImageButton>
+                    <Image Source="icnUsuarioGreen.png"  Aspect="AspectFill"
+                            Margin="-20"
+                            HeightRequest="100"
+                            WidthRequest="100"/>       
 
                 </Frame>
+
+                <BoxView Grid.Row="4" Grid.ColumnSpan="3" Color="#00F5FF" Opacity="0.25" HeightRequest="1" />
+
+
+
+                <StackLayout Grid.Row="5" Grid.ColumnSpan="3" Padding="5,5,42,5"
+                    HorizontalOptions="CenterAndExpand" BackgroundColor="Transparent" >
+
+
+                    <Grid VerticalOptions="FillAndExpand"
+					  HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="35" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Row="0"
+				  Grid.Column="0"                   
+				  Aspect="AspectFit"
+				  HeightRequest="24"                  
+				  Margin="0,20,8,0"     
+				  Source="icnUserGreen.png"/>
+
+                        <!--TODO: Set the entry bordercolor: #96DEB0-->
+                        <Entry Grid.Row="0"
+					Grid.Column="1" 
+					Grid.ColumnSpan="2"
+                    Margin="0,20,0,0" 
+					Style="{StaticResource EntryStyle}"
+					Placeholder="Usuario"
+					MaxLength="256"
+					x:Name="EntEmail"
+					Keyboard="Email" />
+
+                        <Image  Grid.Row="1"
+					Grid.Column="0"
+                    Margin="0,20,8,0"      
+					Aspect="AspectFit"
+					HeightRequest="24"                                               					                      
+					Source="icnPasswordGreen.png"/>
+
+                        <Entry Grid.Row="1"
+					Grid.Column="1"
+					Grid.ColumnSpan="2"
+                    Margin="0,20,0,0"   
+					Placeholder="Contraseña"
+					Style="{StaticResource EntryStyle}"
+					IsPassword="True"
+					x:Name="EntPassword"
+					Keyboard="Default" />
+
+                    </Grid>
+
+                
+                </StackLayout>
 
 
             </Grid>
